@@ -24,4 +24,5 @@ private:
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
+	//test
 };
