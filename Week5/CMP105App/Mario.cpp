@@ -1,4 +1,5 @@
 #include "Mario.h"
+#include <iostream>
 
 Mario::Mario()
 {
@@ -23,6 +24,8 @@ Mario::Mario()
 	setTextureRect(currentAnimation->getCurrentFrame());
 	moving = 0;
 	stop = 0;
+	norm = 0;
+	flip = 0;
 }
 
 Mario::~Mario()
@@ -31,7 +34,7 @@ Mario::~Mario()
 
 void Mario::update(float dt)
 {
-	if (stop == 1 && currentAnimation->getCurrentFrame() == (sf::IntRect(0, 0, 15, 21))) {
+	if (stop == 1 && (currentAnimation->getCurrentFrame().left == 0 || currentAnimation->getCurrentFrame().left == 60 || currentAnimation->getCurrentFrame().left == 32) ) {
 		moving = 0;
 		currentAnimation->reset();
 		stop = 0;
@@ -40,42 +43,42 @@ void Mario::update(float dt)
 	if (moving) {
 		currentAnimation->animate(dt);
 		move(getVelocity()* dt);
-		if (currentAnimation->getCurrentFrame() == (sf::IntRect(45, 0, 15, 21))) {
+		if (currentAnimation->getCurrentFrame().left == 45 || currentAnimation->getCurrentFrame().left == 32 || currentAnimation->getCurrentFrame().left == 16) {
 			stop = 1;
 		}
 	}
-	
 }
 
 void Mario::handleInput(float dt)
 {
+	norm = 0;
 	if (input->isKeyDown(sf::Keyboard::Down)) {
 		currentAnimation = &duck;
 		setTextureRect(currentAnimation->getCurrentFrame());
-		currentAnimation->animate(dt);
-		input->setKeyUp(sf::Keyboard::Down);
+		norm = 1;
 	}
 
 	if (input->isKeyDown(sf::Keyboard::S)) {
 		currentAnimation = &swim;
 		setTextureRect(currentAnimation->getCurrentFrame());
-		currentAnimation->animate(dt);
-		input->setKeyUp(sf::Keyboard::S);
+		norm = 1;
 	}
 
 	if (input->isKeyDown(sf::Keyboard::Right)) {
 		moving = 1;
-		currentAnimation->setFlipped(0);
+		flip = 0;
 		setTextureRect(currentAnimation->getCurrentFrame());
 		setVelocity(100, 0);
-		//input->setKeyUp(sf::Keyboard::Right);
 	}
 
 	if (input->isKeyDown(sf::Keyboard::Left)) {
 		moving = 1;
-		currentAnimation->setFlipped(1);
+		flip = 1;
 		setTextureRect(currentAnimation->getCurrentFrame());
 		setVelocity(-100, 0);
-		//input->setKeyUp(sf::Keyboard::Left);
 	}
+	if (norm == 0) {
+		currentAnimation = &walk;
+	}
+	currentAnimation->setFlipped(flip);
 }

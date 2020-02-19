@@ -5,8 +5,7 @@
 class Mario : public GameObject
 {
 public:
-	bool moving;
-	bool stop;
+	
 	Mario();
 	~Mario();
 
@@ -14,6 +13,10 @@ public:
 	void handleInput(float dt);
 
 protected:
+	bool moving;
+	bool stop;
+	bool norm;
+	bool flip;
 	Animation walk;
 	Animation swim;
 	Animation duck;
