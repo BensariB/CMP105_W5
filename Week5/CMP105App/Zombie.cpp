@@ -28,6 +28,14 @@ void Zombie::update(float dt){
 			moving = 0;
 			currentAnimation->reset();
 		}
+		else if (currentAnimation->getFlipped() == 1) {
+			currentAnimation->setFlipped(0);
+			if (currentAnimation->getCurrentFrame() == sf::IntRect(385, 0, 55, 108)) {
+				moving = 0;
+				currentAnimation->reset();
+			}
+			currentAnimation->setFlipped(1);
+		}
 	}
 }
 
