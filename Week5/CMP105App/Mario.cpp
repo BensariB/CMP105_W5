@@ -16,6 +16,7 @@ Mario::Mario()
 	swim.addFrame(sf::IntRect(32, 21, 16, 20));
 	swim.setFrameSpeed(0.2f);
 
+	//ducking:
 	duck.addFrame(sf::IntRect(0, 41, 16, 20));
 	duck.addFrame(sf::IntRect(16, 41, 16, 20));
 	duck.setFrameSpeed(0.2f);
@@ -25,7 +26,6 @@ Mario::Mario()
 	moving = 0;
 	stop = 0;
 	norm = 0;
-	flip = 0;
 }
 
 Mario::~Mario()
@@ -34,16 +34,17 @@ Mario::~Mario()
 
 void Mario::update(float dt)
 {
-	if (stop == 1 && (currentAnimation->getCurrentFrame().left == 0 || currentAnimation->getCurrentFrame().left == 60 || currentAnimation->getCurrentFrame().left == 32) ) {
+	if (stop == 1 && currentAnimation->first_frame()) {
 		moving = 0;
 		currentAnimation->reset();
 		stop = 0;
 	}
 	setTextureRect(currentAnimation->getCurrentFrame());
+
 	if (moving) {
 		currentAnimation->animate(dt);
 		move(getVelocity()* dt);
-		if (currentAnimation->getCurrentFrame().left == 45 || currentAnimation->getCurrentFrame().left == 32 || currentAnimation->getCurrentFrame().left == 16) {
+		if (currentAnimation->last_frame()) {
 			stop = 1;
 		}
 	}

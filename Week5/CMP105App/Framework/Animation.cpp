@@ -17,6 +17,20 @@ void Animation::addFrame(sf::IntRect rect)
 	frames.push_back(rect);
 }
 
+bool Animation::first_frame() {
+	if (currentFrame == 0) {
+		return true;
+	}
+	else return false;
+}
+
+bool Animation::last_frame() {
+	if (currentFrame == (int)frames.size() - 1) {
+		return true;
+	}
+	else return false;
+}
+
 // Returns the size of the animation. The number of frames.
 int Animation::getSize()
 {

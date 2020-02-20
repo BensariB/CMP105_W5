@@ -12,7 +12,7 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	zombie.setTexture(&zombTexture);
 
 	marioTexture.loadFromFile("gfx/MarioSheetT.png");
-	mario.setSize(sf::Vector2f(15, 21));
+	mario.setSize(sf::Vector2f(100, 100));
 	mario.setPosition(200, 200);
 	mario.setTexture(&marioTexture);
 }

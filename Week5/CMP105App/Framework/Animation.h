@@ -36,6 +36,8 @@ public:
 	void play(bool play) { isPlaying = true; };
 	void stop();
 	void pause() { isPlaying = false; };
+	bool first_frame();
+	bool last_frame();
 
 protected:
 	std::vector<sf::IntRect>frames;
